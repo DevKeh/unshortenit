@@ -6,4 +6,5 @@ __email__ = 'jeffrey.kehler@gmail.com'
 __version__ = '0.2.3'
 
 from .base import unshorten
+from .base import INVALID_URL_ERROR_CODE
 

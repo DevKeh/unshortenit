@@ -13,6 +13,11 @@ def test_adfly_valid_link(adfly):
     assert uri == 'https://microsoft.com'
 
 
+def test_adfly_valid_link__redirection(adfly):
+    uri = adfly.unshorten('http://adf.ly/1ZpGSo')
+    assert uri == 'http://www.google.com/'
+
+
 def test_adfly_invalid_link(adfly):
     with pytest.raises(UnshortenFailed, message='No ysmm variable found.'):
         adfly.unshorten('http://adf.ly/1icWR')

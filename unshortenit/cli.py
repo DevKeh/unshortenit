@@ -24,3 +24,6 @@ URL = UrlParamType()
 def cli(module, url, follow_nested):
     unshortener = UnshortenIt()
     print(unshortener.unshorten(url, module, unshorten_nested=follow_nested))
+
+if __name__ == '__main__':
+    cli()

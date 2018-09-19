@@ -4,19 +4,24 @@ from base64 import b64decode
 from unshortenit.module import UnshortenModule
 from unshortenit.exceptions import UnshortenFailed
 
+from six.moves import urllib_parse
+
 
 class AdfLy(UnshortenModule):
 
     name = 'adfly'
     domains = set([
         'adf.ly',
+        'clearload.bid',
+        'brightvar.bid',
         'j.gs',
         'q.gs',
         'u.bb',
         'ay.gy',
         'atominik.com',
         'tinyium.com',
-        'microify.com'
+        'microify.com',
+        'zipansion.com'
     ])
 
     def __init__(self, headers: dict = None, timeout: int = 30):
@@ -29,6 +34,12 @@ class AdfLy(UnshortenModule):
         ysmm = re.findall(r'var ysmm =.*\;?', res.text)
 
         if len(ysmm) == 0:
+
+            parsed_url = urllib_parse.urlparse(res.url)
+
+            if parsed_url.netloc not in self.domains:
+                return res.url
+
             raise UnshortenFailed('No ysmm variable found.')
 
         # Decode the ysmm variable and extract the actual link
